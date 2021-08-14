@@ -6,7 +6,8 @@ Player 1:
   * W- Jump  
   * A,D- Move left,right  
   * S- Swap weapon,dash downwards  
-  * Left Shift- Fire weapon
+  * Left Shift- Fire weapon  
+
 Player 2:
   * 8- Jump  
   * 4,6- Move left,right  
