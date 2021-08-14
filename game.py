@@ -5,7 +5,7 @@ display=pygame.display.set_mode((0,0))
 width,height=display.get_rect()[2],display.get_rect()[3]
 # width=1280
 # height=720
-print(width,height)
+# print(width,height)
 
 
 screen=pygame.Surface((1536,864))
@@ -269,7 +269,7 @@ class Player:
 
 		if self.xc:
 			self.rect[0]+=self.xc
-			self.xc-=self.recoil
+			# self.xc-=self.recoil
 		collisionlist=detect_collisions(self.rect,world,"rect")
 
 		for ob in collisionlist:
@@ -477,32 +477,34 @@ class Player:
 
 						if self.rect[0]>self.opp.rect[0]:
 							if self.xc:
-								self.recoil=11
+								self.recoil=12
 							else:
 								self.recoil=8
+
 						else:
 							if self.xc:
-								self.recoil=-11
+								self.recoil=-12
 							else:
 								self.recoil=-8
+
 						self.reloadtimes["ROCKETLAUNCHER"][1]=time.monotonic()
 
 				elif self.weapon=="MINIGUN":
 					
 					if time.monotonic()-self.reloadtimes["MINIGUN"][1]>self.reloadtimes["MINIGUN"][0]:
-						self.acc=0
+						self.acc/=2.3
 						ry=random.choice([x for x in range(0,10,2)])
 
 						if self.face=="RIGHT":
 							self.bullets.append(Minigun(pygame.Rect(self.rect.center[0]+127,self.rect.center[1]-12+ry,minigun_b.get_width(),minigun_b.get_height()),sprite=minigun_b,rand=(3,5),side="RIGHT"))
 							if self.xc:
-								self.recoil=-6
+								self.recoil=-7
 							else:
 								self.recoil=-4
 						else:
 							self.bullets.append(Minigun(pygame.Rect(self.rect.center[0]-127,self.rect.center[1]-12+ry,minigun_b.get_width(),minigun_b.get_height()),sprite=minigun_b,rand=(3,5),side="LEFT"))
 							if self.xc:
-								self.recoil=6
+								self.recoil=7
 							else:
 								self.recoil=4
 
@@ -512,19 +514,19 @@ class Player:
 				elif self.weapon=='PISTOL':
 					
 					if time.monotonic()-self.reloadtimes["PISTOL"][1]>self.reloadtimes["PISTOL"][0]:
-						self.acc=0
+						self.acc/=3
 						if self.face=="RIGHT":
 							self.bullets.append(Minigun(pygame.Rect(self.rect[0]+45+10,self.rect[1]+10,pistol_b.get_width(),pistol_b.get_height()),sprite=pistol_b,rand=(1,3),side="RIGHT"))
-							if self.xc:
-								self.recoil=-8
+							if self.state=="JUMP":
+								self.recoil=-9
 							else:
-								self.recoil=-4
+								self.recoil=-5
 						else:
 							self.bullets.append(Minigun(pygame.Rect(self.rect[0]-30,self.rect[1]+10,pistol_b.get_width(),pistol_b.get_height()),sprite=pistol_b,rand=(1,3),side="LEFT"))
-							if self.xc:
-								self.recoil=8
+							if self.state=="JUMP":
+								self.recoil=9
 							else:
-								self.recoil=4
+								self.recoil=5
 
 						self.reloadtimes["PISTOL"][1]=time.monotonic()
 
@@ -536,16 +538,16 @@ class Player:
 							for k in range(4):
 								self.bullets.append(Minigun(pygame.Rect(self.rect[0]+45+10+random.choice([-4,0,4]),self.rect[1]+10+k*2,pistol_b.get_width(),pistol_b.get_height()),sprite=pistol_b,rand=(2,13),side="RIGHT"))
 							if self.xc:
-								self.recoil=-12
+								self.recoil=-9.5
 							else:
-								self.recoil=-7
+								self.recoil=-6
 						else:
 							for k in range(4):
 								self.bullets.append(Minigun(pygame.Rect(self.rect[0]-30+random.choice([-4,0,4]),self.rect[1]+10+k*2,pistol_b.get_width(),pistol_b.get_height()),sprite=pistol_b,rand=(2,13),side="LEFT"))
 							if self.xc:
-								self.recoil=12
+								self.recoil=9.5
 							else:
-								self.recoil=7
+								self.recoil=6
 
 						self.reloadtimes["SHOTGUN"][1]=time.monotonic()
 
@@ -553,19 +555,19 @@ class Player:
 				elif self.weapon=='BLASTER':
 					
 					if time.monotonic()-self.reloadtimes["PISTOL"][1]>self.reloadtimes["PISTOL"][0]:
-						self.acc=0
+						self.acc/=3
 						if self.face=="RIGHT":
 							self.bullets.append(Minigun(pygame.Rect(self.rect[0]+45+10,self.rect[1]+10,blue_laser.get_width(),blue_laser.get_height()),sprite=blue_laser,rand=(1,3),side="RIGHT"))
-							if self.xc:
-								self.recoil=-8
+							if self.state=="JUMP":
+								self.recoil=-9
 							else:
-								self.recoil=-4
+								self.recoil=-5
 						else:
 							self.bullets.append(Minigun(pygame.Rect(self.rect[0]-30,self.rect[1]+10,blue_laser.get_width(),blue_laser.get_height()),sprite=blue_laser,rand=(1,3),side="LEFT"))
-							if self.xc:
-								self.recoil=8
+							if self.state=="JUMP":
+								self.recoil=9
 							else:
-								self.recoil=4
+								self.recoil=5
 
 						self.reloadtimes["PISTOL"][1]=time.monotonic()
 
@@ -580,16 +582,18 @@ class Player:
 							self.bullets.append(Sniper(pygame.Rect(self.rect[0]-30,self.rect[1]-10,minigun_b.get_width(),minigun_b.get_height()),self.opp.rect,minigun_b))
 
 						
-						if self.rect[0]>self.opp.rect[0]:
+						if self.rect[0]>self.opp.rect[0]:	
 							if self.xc:
 								self.recoil=12
 							else:
-								self.recoil=7
+								self.recoil=8
+
 						else:
 							if self.xc:
 								self.recoil=-12
 							else:
-								self.recoil=-7
+								self.recoil=-8
+
 						self.reloadtimes["SNIPER"][1]=time.monotonic()
 
 
@@ -599,11 +603,17 @@ class Player:
 					if self.face=="RIGHT":
 						for k in range(4):
 							self.particles.append(Flame(self.rect[0]+132,self.rect.center[1]-12,self.face))
-						self.recoil=-1.3
+						if self.xc:
+							self.recoil=-2.3
+						else:
+							self.recoil=-1.7
 					else:
 						for k in range(4):
 							self.particles.append(Flame(self.rect[0]-96,self.rect.center[1]-12,self.face))
-						self.recoil=1.3
+						if self.xc:
+							self.recoil=2.3
+						else:
+							self.recoil=1.7
 
 
 
@@ -1502,7 +1512,9 @@ def Game():
 	weapon_time=time.monotonic()
 	weapon_spawn=5
 	weapons={}
-	weaponx=[x for x in range(-200,1900,300)]
+	# weaponx=[x+60 for x in range(-200,1900,300)]
+	weaponx=[-130, 190, 460, 750, 1050, 1380, 1660]
+	# print(weaponx)
 	running=True
 	pause=False
 	win=False
@@ -1703,7 +1715,6 @@ def Game():
 
 				elif event.key==pygame.K_SPACE:
 					print(clock.get_fps())
-					print(play1.score)
 					print(len(snow))
 			# elif event.type==pygame.KEYUP:
 			# 	if event.key in [pygame.K_d,pygame.K_a,1073741918,1073741916]:
@@ -1844,16 +1855,22 @@ def Game():
 					x=random.choice(weaponx)
 					weaponx.remove(x)
 				else:
+					# print('weaponx')
 					while True:
-						x=random.randrange(-200,1900,350)+70
+						x=random.choice([-130, 190, 460, 750, 1050, 1380, 1660])
+						# x=random.randrange(-200,1900,350)+60
 						xlist=[weapons[ob][1].center[0] for ob in weapons]
+						# xlist=[-130, 180, 460, 790, 1050, 1380, 1660]
+
 						if x in xlist:
 							continue					
 						break
 
 				
-				w[2]=w[1].get_rect(center=(x+70,-300))
+				w[2]=w[1].get_rect(center=(x,-300))
 				weapons[w[0]]=[w[1],w[2]]
+		if len(avail_weapons)>=1:
+			weapon_spawn=True
 
 		# print(weapons)
 		for wp in weapons.values():
@@ -1934,4 +1951,5 @@ def Game():
 ############################################################################################################################################
 ############################################################################################################################################
 
+	
 MainMenu()
