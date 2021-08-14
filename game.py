@@ -1869,8 +1869,9 @@ def Game():
 				
 				w[2]=w[1].get_rect(center=(x,-300))
 				weapons[w[0]]=[w[1],w[2]]
-		if len(avail_weapons)>=1:
-			weapon_spawn=True
+		else:
+			if len(avail_weapons)>=1:
+				weapon_spawn=random.randrange(15,20)
 
 		# print(weapons)
 		for wp in weapons.values():
