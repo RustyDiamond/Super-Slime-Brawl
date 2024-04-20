@@ -88,12 +88,12 @@ flames=[pygame.image.load('weaponsprites/flame'+str(x)+'.png').convert_alpha() f
 flamethrower=pygame.image.load('weaponsprites/flamethrower.png').convert_alpha()
 shotgun=pygame.image.load('weaponsprites/shotgun.png').convert_alpha()
 explosion=[[pygame.image.load('weaponsprites/explosion'+str(x)+'.png').convert_alpha() for x in range(1,10)],[pygame.image.load('weaponsprites/explosion_a'+str(x)+'.png').convert_alpha() for x in range(1,10)]]
-minigun_flashes=[[pygame.image.load('weaponsprites/muzzleflashes/minigun_flash_a'+str(x)+'.png').convert_alpha() for x in range(1,6)],
-					[pygame.image.load('weaponsprites/muzzleflashes/minigun_flash_b'+str(x)+'.png').convert_alpha() for x in range(1,6)]]
-shotgun_flashes=[[pygame.image.load('weaponsprites/muzzleflashes/shotgun_flash_a'+str(x)+'.png').convert_alpha() for x in range(1,7)]]
-pistol_flashes=[[pygame.image.load('weaponsprites/muzzleflashes/pistol_flash_a'+str(x)+'.png').convert_alpha() for x in range(1,7)]]
-inverted_pistol_flashes=[[pygame.image.load('weaponsprites/muzzleflashes/inverted_pistol_flash_a'+str(x)+'.png').convert_alpha() for x in range(1,6)]]
-sniper_flashes=[[pygame.image.load('weaponsprites/muzzleflashes/sniper_flash_a'+str(x)+'.png').convert_alpha() for x in range(1,7)]]
+minigun_flashes=[[pygame.image.load('muzzleflashes/minigun_flash_a'+str(x)+'.png').convert_alpha() for x in range(1,6)],
+					[pygame.image.load('muzzleflashes/minigun_flash_b'+str(x)+'.png').convert_alpha() for x in range(1,6)]]
+shotgun_flashes=[[pygame.image.load('muzzleflashes/shotgun_flash_a'+str(x)+'.png').convert_alpha() for x in range(1,7)]]
+pistol_flashes=[[pygame.image.load('muzzleflashes/pistol_flash_a'+str(x)+'.png').convert_alpha() for x in range(1,7)]]
+inverted_pistol_flashes=[[pygame.image.load('muzzleflashes/inverted_pistol_flash_a'+str(x)+'.png').convert_alpha() for x in range(1,6)]]
+sniper_flashes=[[pygame.image.load('muzzleflashes/sniper_flash_a'+str(x)+'.png').convert_alpha() for x in range(1,7)]]
 # minigun_flashes=[[x,x.get_rect()] for x in minigun_flashes]
 # flamethrower=pygame.transform.scale(flamethrower,(int(flamethrower.get_width()*0.8),int(flamethrower.get_height()*0.8)))
 screenshake=False
